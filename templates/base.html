@@ -13,7 +13,7 @@
         <meta property="fb:app_id" content="{{ application_id }}" />
 
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
         <link rel="stylesheet" href="/css/core.css">
 
         <style>
@@ -86,8 +86,8 @@
         {% endblock %}
         </div>
 
-        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/lib/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/core.js"></script>
 
         <script type="text/javascript">
@@ -111,7 +111,7 @@
             js.id = id;
             js.async = true;
             js.src = "//connect.facebook.net/pt_BR/all.js";
-            
+
             d.getElementsByTagName('head')[0].appendChild(js);
         }(document));
         </script>
