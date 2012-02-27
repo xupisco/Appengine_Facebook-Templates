@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-_DEBUG = True
-
-import webapp2  # Template engine
 from functools import wraps
-
 from utils import conf
 from utils.base import CoreHandler
 
@@ -36,9 +32,3 @@ class Main(CoreHandler):
     @user_required
     def get(self):
         self.generate('index.html')
-
-
-app = webapp2.WSGIApplication([
-        ('/', Main),
-        ('/connect', Connect),
-], debug=_DEBUG)
