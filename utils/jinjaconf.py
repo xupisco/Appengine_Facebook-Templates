@@ -62,24 +62,7 @@ def date_diff(value, internal = False):
 	else:
 		return int(diff_in_seconds)
 
-def offer_status(value, dt):
-	seconds = date_diff(dt, True)
-	if value == 'open':
-		if int(seconds) <= 0:
-			return "<span class='label'>expirada</span>"
-		elif int(seconds) < 86400: # One day
-			return "<span class='label label-warning'>expirando</span>"
-		else:
-			return "<span class='label label-info'>aberta</span>"
-	elif value == 'rejected':
-		return "<span class='label label-important'>recusada</span>"
-	elif value == 'accepted':
-		return "<span class='label label-success'>aceita</span>"
-	else:
-		return "<span class='label'>%s</span>" % value
-
 
 env.filters['nl2br'] = nl2br
 env.filters['truncate_words'] = truncate_words
 env.filters['date_diff'] = date_diff
-env.filters['offer_status'] = offer_status
