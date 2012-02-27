@@ -1,0 +1,14 @@
+#ajax_loading {
+    top: 58px;
+    position: fixed;
+    right: 18px;
+    background-color: #F1F1F1;
+    padding: 3px 16px;
+    padding-top: 5px;
+    border: 1px solid #CCC;
+    display: none;
+}
+
+tr.noborder th {
+    border: 0;
+}

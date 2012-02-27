@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+    <head>
+        <meta charset="utf-8">
+        {% block meta %}
+        <meta property="og:title" content="{{ application_name }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ application_url }}/" />
+        <meta property="og:image" content="{{ application_url }}/img/logo-og.png" />
+        <meta property="og:site_name" content="{{ application_name }}"/>
+        <meta property="og:description" content="{{ application_desc }}" />
+        {% endblock %}
+        <meta property="fb:app_id" content="{{ application_id }}" />
+
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/core.css">
+
+        <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        .full {
+            width: 100%;
+            height: 28px;
+            box-sizing: border-box;
+        }
+
+        #map_canvas img {
+            max-width: none;
+        }
+        </style>
+
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-29190422-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+    </head>
+    <body>
+
+        <!-- Eu que fiz: xupisco@gmail.com -->
+
+        <div id="ajax_loading"><img src="/img/dist_loader.gif" border="0" title="Carregando..." /></div>
+
+        {% block navbar %}
+        <br />
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="/">App<span style="color: #ffc000;">Name</span>&nbsp;</a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li><a href="#">Ajuda</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="nav_username">{{ user.name|truncate_words(1) }}</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:inviteFriends();"><i class="icon-comment"></i> Convidar amigos</a></li>
+                                <li><a href=""><i class="icon-heart"></i> Outro item</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="navbar-text pull-right"></p>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+        <div class="container">
+        {% block content %}
+        {% endblock %}
+        </div>
+
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/core.js"></script>
+
+        <script type="text/javascript">
+        $(function() {
+            $('#ajax_loading').ajaxStart(function(){ $(this).show(); });
+            $('#ajax_loading').ajaxStop(function(){ $(this).hide(); });
+        });
+        </script>
+
+        {% block script %}{% endblock %}
+
+        <div id="fb-root"></div>
+        <script type="text/javascript">
+        window.fbAsyncInit = function() { facebookInit({{ app_info|safe }}) };
+        (function(d) {
+            var js, id = 'facebook-jssdk';
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "//connect.facebook.net/pt_BR/all.js";
+            
+            d.getElementsByTagName('head')[0].appendChild(js);
+        }(document));
+        </script>
+
+        <script type="text/javascript">
+        window.onload=function() {
+            FB.Canvas.setSize({ height: document.body.offsetHeight });
+        }
+        </script>
+
+    </body>
+</html>
