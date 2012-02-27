@@ -1,8 +1,13 @@
-import json, urllib, hashlib, hmac, time, base64
-
+# -*- coding: utf-8 -*-
+import base64
+import hmac
+import hashlib
+import json
+import time
+import urllib
+from google.appengine.api import urlfetch
 from utils import conf
 
-from google.appengine.api import urlfetch
 
 class FacebookApiError(Exception):
     def __init__(self, result):
@@ -57,8 +62,8 @@ class Facebook(object):
                 self.signed_request = data
                 self.user_id = data.get(u'user_id')
                 self.access_token = data.get(u'oauth_token')
-        except ValueError, ex:
-            pass # ignore if can't split on dot
+        except ValueError:
+            pass  # ignore if can't split on dot
 
     @property
     def user_cookie(self):

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 def unique_result(array):
     unique_results = []
     for obj in array:
