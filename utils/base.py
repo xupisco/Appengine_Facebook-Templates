@@ -142,7 +142,6 @@ class CoreHandler(webapp2.RequestHandler):
             'userIDOnServer': self.user.user_id if self.user else None,
             'external_href': conf.EXTERNAL_HREF,
             'content_path': self.request.path,
-            'isSuperUser': True if self.user and self.user.user_id in conf.ADMIN_LIST else False,
             'csrf_token': self.csrf_token
         }
         
