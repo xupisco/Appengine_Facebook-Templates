@@ -36,7 +36,7 @@
         }
         </style>
 
-        <script type="text/javascript">
+        <script>
 
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-29190422-1']);
@@ -86,11 +86,11 @@
         {% endblock %}
         </div>
 
-        <script type="text/javascript" src="/js/lib/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/core.js"></script>
+        <script src="/js/lib/jquery-1.7.1.min.js"></script>
+        <script src="/js/lib/bootstrap.min.js"></script>
+        <script src="/js/core.js"></script>
 
-        <script type="text/javascript">
+        <script>
         $(function() {
             $('#ajax_loading').ajaxStart(function(){ $(this).show(); });
             $('#ajax_loading').ajaxStop(function(){ $(this).hide(); });
@@ -100,7 +100,7 @@
         {% block script %}{% endblock %}
 
         <div id="fb-root"></div>
-        <script type="text/javascript">
+        <script>
         window.fbAsyncInit = function() { facebookInit({{ app_info|safe }}) };
         (function(d) {
             var js, id = 'facebook-jssdk';
@@ -116,7 +116,7 @@
         }(document));
         </script>
 
-        <script type="text/javascript">
+        <script>
         window.onload=function() {
             FB.Canvas.setSize({ height: document.body.offsetHeight });
         }
