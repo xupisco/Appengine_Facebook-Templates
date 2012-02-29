@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
-import base64
-import Cookie
-import datetime
-import json
-import logging
-import traceback
-import webapp2  # Template engine
+import base64, Cookie, datetime, json, logging, traceback, webapp2
 from google.appengine.api import urlfetch, taskqueue
 from google.appengine.runtime import DeadlineExceededError
 from uuid import uuid4
-from utils.facebook import Facebook
-from utils.facebook import CsrfException
-from utils import conf, jinjaconf
+
+import settings
+from core.facebook import Facebook
+from core.facebook import CsrfException
+from utils import jinjaconf
 from main.models import User
 
 _USER_FIELDS = u'name, email, picture, friends'
@@ -138,10 +134,10 @@ class CoreHandler(webapp2.RequestHandler):
 
     def generate(self, template_name, template_values={}, **others):
         app_info = {
-            'appID': conf.FACEBOOK_APP_ID,
-            'canvasName': conf.FACEBOOK_CANVAS_NAME,
+            'appID': settings.FACEBOOK_APP_ID,
+            'canvasName': settings.FACEBOOK_CANVAS_NAME,
             'userIDOnServer': self.user.user_id if self.user else None,
-            'external_href': conf.EXTERNAL_HREF,
+            'external_href': settings.EXTERNAL_HREF,
             'content_path': self.request.path,
             'csrf_token': self.csrf_token
         }
@@ -149,14 +145,14 @@ class CoreHandler(webapp2.RequestHandler):
         values = {
             'app_info': json.dumps(app_info),
             'request': self.request,
-            'application_id': conf.FACEBOOK_APP_ID,
-            'application_name': conf.APP_NAME,
-            'application_desc': conf.APP_DESC,
+            'application_id': settings.FACEBOOK_APP_ID,
+            'application_name': settings.APP_NAME,
+            'application_desc': settings.APP_DESC,
             'application_url': app_info['external_href'],
             'user': self.user,
             'message': self.get_message(),
             'csrf_token': self.csrf_token,
-            'canvas_name': conf.FACEBOOK_CANVAS_NAME
+            'canvas_name': settings.FACEBOOK_CANVAS_NAME
         }
 
         values.update(template_values)
