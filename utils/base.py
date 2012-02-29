@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
-
-import traceback, logging, datetime, Cookie, base64, json
-from uuid import uuid4
-
-import webapp2 # Template engine
-
+import base64
+import Cookie
+import datetime
+import json
+import logging
+import traceback
+import webapp2  # Template engine
 from google.appengine.api import urlfetch, taskqueue
 from google.appengine.runtime import DeadlineExceededError
-
+from uuid import uuid4
 from utils.facebook import Facebook
 from utils.facebook import CsrfException
 from utils import conf, jinjaconf
-
-from models import User
+from main.models import User
 
 _USER_FIELDS = u'name, email, picture, friends'
+
 
 class CoreHandler(webapp2.RequestHandler):
     facebook = None
@@ -36,7 +37,7 @@ class CoreHandler(webapp2.RequestHandler):
     def handle_exception(self, ex, debug_mode):
         """Invoked for unhandled exceptions by webapp"""
         self.log_exception(ex)
-        self.generate('error.html', { 'trace': traceback.format_exc() })
+        self.generate('error.html', {'trace': traceback.format_exc()})
 
     def log_exception(self, ex):
         """Internal logging handler to reduce some App Engine noise in errors"""
@@ -108,8 +109,8 @@ class CoreHandler(webapp2.RequestHandler):
                         access_token=facebook.access_token, name=me[u'name'],
                         email=me.get(u'email'), picture=me[u'picture'], location='-13.752725,-54.667969')
                     user.put()
-                except KeyError, ex:
-                    pass # ignore if can't get the minimum fields
+                except KeyError:
+                    pass  # ignore if can't get the minimum fields
 
         self.facebook = facebook
         self.user = user
@@ -144,7 +145,7 @@ class CoreHandler(webapp2.RequestHandler):
             'content_path': self.request.path,
             'csrf_token': self.csrf_token
         }
-        
+
         values = {
             'app_info': json.dumps(app_info),
             'request': self.request,
@@ -157,7 +158,7 @@ class CoreHandler(webapp2.RequestHandler):
             'csrf_token': self.csrf_token,
             'canvas_name': conf.FACEBOOK_CANVAS_NAME
         }
-    
+
         values.update(template_values)
         template = jinjaconf.env.get_template(template_name)
         self.response.out.write(template.render(values))
